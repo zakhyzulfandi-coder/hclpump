@@ -103,42 +103,69 @@
 
   <script>
 
-    let deferredPrompt;
+let deferredPrompt;
+const installBtn = document.getElementById("installBtn");
 
-    const installBtn = document.getElementById('installBtn');
+// Sembunyikan tombol dulu
+installBtn.style.display = "none";
 
-    window.addEventListener('beforeinstallprompt', (e) => {
+// Register Service Worker
+if ("serviceWorker" in navigator) {
 
-      e.preventDefault();
+  window.addEventListener("load", () => {
 
-      deferredPrompt = e;
+    navigator.serviceWorker.register("./service-worker.js")
+      .then(() => {
+        console.log("Service Worker Registered");
+      });
 
-    });
+  });
 
-    installBtn.addEventListener('click', async () => {
+}
 
-      if (deferredPrompt) {
+// Saat aplikasi bisa diinstall
+window.addEventListener("beforeinstallprompt", (e) => {
 
-        deferredPrompt.prompt();
+  console.log("PWA siap diinstall");
 
-        await deferredPrompt.userChoice;
+  e.preventDefault();
 
-      } else {
+  deferredPrompt = e;
 
-        alert(
-          "Browser belum mendukung install otomatis atau aplikasi sudah terinstall."
-        );
+  // Tampilkan tombol
+  installBtn.style.display = "block";
 
-      }
+});
 
-    });
+// Klik tombol install
+installBtn.addEventListener("click", async () => {
 
-    // Register service worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js');
-    }
+  if (!deferredPrompt) {
 
-  </script>
+    alert("Refresh halaman sekali lalu coba lagi.");
+
+    return;
+
+  }
+
+  deferredPrompt.prompt();
+
+  const { outcome } = await deferredPrompt.userChoice;
+
+  console.log(outcome);
+
+  deferredPrompt = null;
+
+});
+
+// Jika aplikasi sudah terinstall
+window.addEventListener("appinstalled", () => {
+
+  alert("HCL PUMP berhasil diinstall!");
+
+});
+
+</script>
 
 </body>
 </html>
