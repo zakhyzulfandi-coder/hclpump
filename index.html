@@ -6,12 +6,20 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <!-- Logo / Favicon -->
+  <!-- PWA -->
+  <meta name="theme-color" content="#0f172a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Logo -->
   <link rel="icon" type="image/png" href="https://zakhyzulfandi-coder.github.io/Rohis-Mutiara-Ilmu/LOGO-HCL.png">
   <link rel="apple-touch-icon" href="https://zakhyzulfandi-coder.github.io/Rohis-Mutiara-Ilmu/LOGO-HCL.png">
 
+  <!-- Manifest -->
+  <link rel="manifest" href="manifest.json">
+
   <style>
-    /* Mengunci layar penuh & menghilangkan scroll bar bawaan browser luar */
     html, body {
       margin: 0;
       padding: 0;
@@ -21,7 +29,6 @@
       background: #f8f9fa;
     }
 
-    /* Memaksa iframe membentang penuh 100% tanpa celah */
     iframe {
       width: 100%;
       height: 100%;
@@ -30,13 +37,18 @@
     }
   </style>
 </head>
-
 <body>
 
-  <iframe 
-    src="https://script.google.com/a/~/macros/s/AKfycbxJxtXwJhDgPpTgLbOxttNr9gUpGvIlq5xfU9WkKvdriz_01W7mYDxxO0VSKk44ZUw/exec" 
+  <iframe
+    src="https://script.google.com/a/~/macros/s/AKfycbxJxtXwJhDgPpTgLbOxttNr9gUpGvIlq5xfU9WkKvdriz_01W7mYDxxO0VSKk44ZUw/exec"
     allowfullscreen>
   </iframe>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
 
 </body>
 </html>
