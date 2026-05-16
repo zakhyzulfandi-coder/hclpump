@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Download HCL PUMP</title>
+
+  <!-- Logo -->
+  <link rel="icon" type="image/png"
+    href="https://zakhyzulfandi-coder.github.io/Rohis-Mutiara-Ilmu/LOGO-HCL.png">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:linear-gradient(135deg,#0f172a,#1e293b);
+      padding:20px;
+      color:white;
+    }
+
+    .card{
+      width:100%;
+      max-width:380px;
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:25px;
+      padding:35px 25px;
+      text-align:center;
+      box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .logo{
+      width:110px;
+      height:110px;
+      border-radius:24px;
+      object-fit:cover;
+      margin-bottom:20px;
+      background:white;
+      padding:10px;
+    }
+
+    h1{
+      font-size:30px;
+      margin-bottom:10px;
+    }
+
+    p{
+      font-size:15px;
+      opacity:0.85;
+      line-height:1.6;
+      margin-bottom:30px;
+    }
+
+    .btn{
+      width:100%;
+      padding:16px;
+      border:none;
+      border-radius:16px;
+      font-size:17px;
+      font-weight:bold;
+      cursor:pointer;
+      background:white;
+      color:#0f172a;
+      transition:0.3s;
+    }
+
+    .btn:hover{
+      transform:scale(1.03);
+    }
+
+    .info{
+      margin-top:20px;
+      font-size:13px;
+      opacity:0.7;
+    }
+
+    .hidden{
+      display:none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <img class="logo"
+      src="https://zakhyzulfandi-coder.github.io/Rohis-Mutiara-Ilmu/LOGO-HCL.png"
+      alt="Logo HCL">
+
+    <h1>HCL PUMP</h1>
+
+    <p>
+      Install aplikasi HCL PUMP ke perangkat Anda untuk pengalaman yang lebih nyaman dan fullscreen.
+    </p>
+
+    <button class="btn" id="installBtn">
+      Download / Install Aplikasi
+    </button>
+
+    <div class="info">
+      Support Android, Laptop, dan PC
+    </div>
+
+  </div>
+
+  <script>
+    let deferredPrompt;
+
+    const installBtn = document.getElementById('installBtn');
+
+    installBtn.style.display = 'none';
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+
+      deferredPrompt = e;
+
+      installBtn.style.display = 'block';
+    });
+
+    installBtn.addEventListener('click', async () => {
+
+      if (!deferredPrompt) {
+        alert("Browser Anda belum mendukung install aplikasi otomatis.");
+        return;
+      }
+
+      deferredPrompt.prompt();
+
+      const { outcome } = await deferredPrompt.userChoice;
+
+      if (outcome === 'accepted') {
+        console.log('Aplikasi diinstall');
+      }
+
+      deferredPrompt = null;
+    });
+  </script>
+
+</body>
+</html>
